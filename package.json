@@ -1,0 +1,27 @@
+{
+  "name": "zumbor-encounters",
+  "version": "1.0.0",
+  "description": "Web interface for adding Encounter's to zumbor",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ziplodocus/Ziplod-Encounters.git"
+  },
+  "author": "ziplodocus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ziplodocus/Ziplod-Encounters/issues"
+  },
+  "homepage": "https://github.com/Ziplodocus/Ziplod-Encounters#readme",
+  "devDependencies": {
+    "@ziplodocus/zumbor-types": "^1.0.0",
+    "sass": "^1.55.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.0"
+  }
+}
