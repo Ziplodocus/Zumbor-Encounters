@@ -1,35 +1,8 @@
-import { Attribute } from '@ziplodocus/zumbor-types';
+import { get, getAll } from './utilities';
+import EncounterForm from './EncounterForm';
 
-const get = (sel: string, par: Element | Document = document) => par.querySelector(sel);
-const getAll = (sel: string, par = document) => par.querySelectorAll(sel);
+getAll('[data-encounter-form]').forEach(el => {
+    if (el instanceof HTMLFormElement) new EncounterForm(el);
+    else console.error(el, 'Not a form element');
+});
 
-(() => {
-    let optionTemplate = get('[data-option]');
-    if (!(optionTemplate instanceof HTMLTemplateElement)) return;
-    optionTemplate = optionTemplate.content.firstElementChild;
-    if (!(optionTemplate instanceof HTMLFieldSetElement)) return;
-
-    const options = get('[name=options]');
-    if (!options) return;
-
-    const addOption = () => {
-        if (!(optionTemplate instanceof HTMLFieldSetElement)) return;
-        const nameInput = get('[data-option-name]', options);
-        if (!(nameInput instanceof HTMLInputElement)) return;
-        const newOption = optionTemplate.cloneNode(true) as HTMLFieldSetElement;
-        newOption.name = nameInput.value;
-
-        options.appendChild(newOption);
-    };
-
-    const formActions = {
-        addOption
-    };
-
-    getAll('[data-action]').forEach(
-        el => el.addEventListener(
-            'click',
-            formActions[el.dataset['action']]
-        )
-    );
-})();

@@ -26,15 +26,17 @@ main {
 
 fieldset {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     padding: 3%;
     border: 2px solid #555;
     border-radius: 0.5em;
     background-image: linear-gradient(#2228, #1118);
+    @media (min-width: 769px) {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
-.span-2 {
-    grid-column: span 2;
+.col-span {
+    grid-column: 1 / -1;
 }
 
 .flex {
