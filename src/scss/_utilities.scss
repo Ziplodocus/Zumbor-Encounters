@@ -1,0 +1,47 @@
+%clay {
+    --depth: 0.3em;
+    --spread: 0.2em;
+    position: relative;
+    border: none;
+    border-radius: 0.5em;
+    box-shadow: inset 0 calc(-1 * var(--depth)) var(--spread) 0em hsl(var(--dark) / 50%),
+        0 var(--depth) 0.4em 0em hsl(var(--dark) / 50%);
+    transition-property: box-shadow, filter, translate;
+    transition-duration: 300ms;
+}
+%clay-hover {
+    @extend %clay;
+    &:hover,
+    &:focus-visible {
+        --depth: 0.3em;
+        --spread: 0.4em;
+        translate: 0 -2px;
+        filter: saturate(1.2);
+    }
+    &:active {
+        --depth: 0.15em;
+        --spread: 0.1em;
+        translate: 0 1px;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.col-span {
+    grid-column: 1 / -1;
+}
+
+.flex {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}

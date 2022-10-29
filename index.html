@@ -12,11 +12,7 @@
 
 <body>
     <header>
-        <h1>Ziplod Encounter Creator</h1>
-        <label>
-            Authentication Token
-            <input class="input" id="google-auth" name="google-auth" type="text">
-        </label>
+        <h1>Zumbor Encounter Creator</h1>
     </header>
     <main>
         <form action="" data-encounter-form>
@@ -110,6 +106,14 @@
             </fieldset>
         </form>
     </main>
+    <footer>
+        <notice-strip></notice-strip>
+        <div class="flex">
+            <label class="sr-only" for="google-auth">Auth Token</label>
+            <input class="input" id="google-auth" name="google-auth" type="text" placeholder="Authentication Token">
+            <button data-submit>Submit</button>
+        </div>
+    </footer>
 </body>
 
 </html>

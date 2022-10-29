@@ -27,27 +27,43 @@ export default class EncounterForm {
         });
     }
     addOption = (e: Event) => {
-        if (this.optionCount === 4) return new Error("There's a max of 4 options.");
-        if (this.optionNamer.value === '') return new Error("An option must have a label!");
+        if (this.optionCount === 4)
+            return this.error(new LimitError("There's a max of 4 options."));
+        if (this.optionNamer.value === '')
+            return this.error(new Error("An option must have a label!"));
 
         let optionTemplate = get('[data-option]');
-        if (!(optionTemplate instanceof HTMLTemplateElement)) throw new Error('No template element with data-option attribute');
+        if (!(optionTemplate instanceof HTMLTemplateElement))
+            return this.error(new Error('No template element with data-option attribute'));
+
         optionTemplate = optionTemplate.content.firstElementChild;
-        if (!(optionTemplate instanceof HTMLFieldSetElement)) throw new Error('Child element of the template is not a fieldset element');
+        if (!(optionTemplate instanceof HTMLFieldSetElement))
+            return this.error(new Error('Child element of the template is not a fieldset element'));
 
         const newOption = optionTemplate.cloneNode(true) as HTMLFieldSetElement;
         newOption.name = this.optionNamer.value;
         const legend = get('legend', newOption) as HTMLLegendElement | null;
-        if (!legend) throw new Error("Option template has no legend");
+        if (!legend)
+            return this.error(new Error("Option template has no legend"));
         legend.textContent = this.optionNamer.value;
 
         this.options.appendChild(newOption);
         this.optionCount++;
-        if (
-            e.currentTarget instanceof HTMLButtonElement
-            && this.optionCount === 4
-        )
-            e.currentTarget.disabled = true;
-        return true;
+        if (this.optionCount !== 4) return this.notice(`Option ${this.optionNamer.value} has been added`);
+
+        (e.currentTarget as HTMLButtonElement).disabled = true;
+        return this.notice("Max number of options added");
+    };
+    // removeOption = (e: Event) => {
+
+    // };
+    private error = (err: Error) => {
+        this.form.dispatchEvent(
+            new CustomEvent('err', { detail: err }));
+    };
+    private notice = (msg: string) => {
+        this.form.dispatchEvent(
+            new CustomEvent('notice', { detail: msg })
+        );
     };
 }

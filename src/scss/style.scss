@@ -1,45 +1,94 @@
 @use "reset";
 @use "defaults";
 @use "variables";
+@use "utilities";
 
 html {
     font-family: sans-serif;
-    background-image: linear-gradient(#222, #111);
-    color: white;
+    background-image: radial-gradient(#222, hsl(var(--dark)));
+    background-attachment: fixed;
+    color: hsl(var(--light));
 }
 
-header,
-main {
-    padding-left: 5%;
-    padding-right: 5%;
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(hsl(var(--light)), transparent);
+    border-radius: 20px;
 }
 
 header {
-    margin-block: var(--spacer);
+    padding: 0.8rem 5%;
     text-align: center;
+    background-color: hsl(var(--dark));
 }
 
 main {
-    max-width: 120ch;
+    padding: var(--spacer) 5%;
+    flex-shrink: 1;
+    overflow-y: auto;
+}
+
+footer {
+    position: relative;
+    padding: 0.8rem 5%;
+    background-color: hsl(var(--dark));
+    z-index: 5000;
+}
+
+notice-strip {
+    position: absolute;
+    inset: auto auto calc(100% + 1rem) 5%;
+    max-width: 30ch;
+    padding: 0.5rem 5%;
+    background-color: hsl(var(--dark) / 75%);
+    backdrop-filter: blur(0.2em);
+    border-radius: 1em 1em 1em 0;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+    translate: -10% 0;
+    transition-property: opacity, translate, color;
+    transition-duration: 300ms;
+    &[active] {
+        display: block;
+        translate: 0 0;
+        opacity: 1;
+    }
+    &[invalid] {
+        color: red;
+    }
+}
+
+form {
+    max-width: 100ch;
+    width: 100%;
     margin-inline: auto;
 }
 
 fieldset {
+    @extend %clay;
     display: grid;
     padding: 3%;
     border: 2px solid #555;
     border-radius: 0.5em;
-    background-image: linear-gradient(#2228, #1118);
-    @media (min-width: 769px) {
+    backdrop-filter: blur(2rem);
+    // background-image: radial-gradient(#2228, hsl(var(--dark) / 50%));
+    @media (min-width: 640px) {
         grid-template-columns: 1fr 1fr;
     }
-}
-
-.col-span {
-    grid-column: 1 / -1;
-}
-
-.flex {
-    display: flex;
-    gap: 1em;
 }
