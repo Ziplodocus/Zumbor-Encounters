@@ -1,62 +1,21 @@
 import { get, getAll } from './utilities';
+import OptionsForm from './OptionsForm';
 
 export default class EncounterForm {
     form: HTMLFormElement;
-    options: HTMLFieldSetElement;
-    optionCount: number;
-    optionNamer: HTMLInputElement;
+    options: OptionsForm;
     constructor(form: HTMLFormElement) {
         this.form = form;
 
         let options = get('[name=options]', form);
         if (!(options instanceof HTMLFieldSetElement)) throw new Error('[name=options] is not a fieldset element');
-        this.options = options;
-        this.optionCount = 0;
+        this.options = new OptionsForm(options);
 
-        const nameInput = get('[data-option-name]', this.form);
-        if (!(nameInput instanceof HTMLInputElement)) throw new Error('[data-option-name] is not an input element');
-        this.optionNamer = nameInput;
-
-        getAll('[data-action]', form).forEach(el => {
-            if (!(el instanceof HTMLElement)) return;
-            const action = el.dataset?.action;
-            if (!action || !(action in this)) return;
-            const handler = this[action as keyof this];
-            if (typeof handler !== 'function') return;
-            el.addEventListener('click', handler as unknown as () => any);
-        });
+        //@ts-ignore TS doesn't recognise custom events.
+        this.options.form.addEventListener('err', (e: CustomEvent) => this.error(e.detail));
+        //@ts-ignore TS doesn't recognise custom events.
+        this.options.form.addEventListener('notice', (e: CustomEvent) => this.notice(e.detail));
     }
-    addOption = (e: Event) => {
-        if (this.optionCount === 4)
-            return this.error(new LimitError("There's a max of 4 options."));
-        if (this.optionNamer.value === '')
-            return this.error(new Error("An option must have a label!"));
-
-        let optionTemplate = get('[data-option]');
-        if (!(optionTemplate instanceof HTMLTemplateElement))
-            return this.error(new Error('No template element with data-option attribute'));
-
-        optionTemplate = optionTemplate.content.firstElementChild;
-        if (!(optionTemplate instanceof HTMLFieldSetElement))
-            return this.error(new Error('Child element of the template is not a fieldset element'));
-
-        const newOption = optionTemplate.cloneNode(true) as HTMLFieldSetElement;
-        newOption.name = this.optionNamer.value;
-        const legend = get('legend', newOption) as HTMLLegendElement | null;
-        if (!legend)
-            return this.error(new Error("Option template has no legend"));
-        legend.textContent = this.optionNamer.value;
-
-        this.options.appendChild(newOption);
-        this.optionCount++;
-        if (this.optionCount !== 4) return this.notice(`Option ${this.optionNamer.value} has been added`);
-
-        (e.currentTarget as HTMLButtonElement).disabled = true;
-        return this.notice("Max number of options added");
-    };
-    // removeOption = (e: Event) => {
-
-    // };
     private error = (err: Error) => {
         this.form.dispatchEvent(
             new CustomEvent('err', { detail: err }));

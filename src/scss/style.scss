@@ -2,6 +2,7 @@
 @use "defaults";
 @use "variables";
 @use "utilities";
+@use "notice-strip";
 
 html {
     font-family: sans-serif;
@@ -49,31 +50,6 @@ footer {
     z-index: 5000;
 }
 
-notice-strip {
-    position: absolute;
-    inset: auto auto calc(100% + 1rem) 5%;
-    max-width: 30ch;
-    padding: 0.5rem 5%;
-    background-color: hsl(var(--dark) / 75%);
-    backdrop-filter: blur(0.2em);
-    border-radius: 1em 1em 1em 0;
-    text-align: center;
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
-    translate: -10% 0;
-    transition-property: opacity, translate, color;
-    transition-duration: 300ms;
-    &[active] {
-        display: block;
-        translate: 0 0;
-        opacity: 1;
-    }
-    &[invalid] {
-        color: red;
-    }
-}
-
 form {
     max-width: 100ch;
     width: 100%;
@@ -83,11 +59,12 @@ form {
 fieldset {
     @extend %clay;
     display: grid;
-    padding: 3%;
+    gap: 1.5rem;
     border: 2px solid #555;
-    border-radius: 0.5em;
+    border-image-slice: 1;
+    padding: 3%;
+    border-radius: 1em;
     backdrop-filter: blur(2rem);
-    // background-image: radial-gradient(#2228, hsl(var(--dark) / 50%));
     @media (min-width: 640px) {
         grid-template-columns: 1fr 1fr;
     }
