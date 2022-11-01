@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 
 <head>
     <meta charset="UTF-8">
@@ -20,84 +20,76 @@
                 <legend>Encounter Details</legend>
                 <label>
                     Title
-                    <input class="input" name="title" type="text" placeholder="Encounter Title" required>
+                    <input name="title" type="text" placeholder="Encounter Title" required>
                 </label>
                 <label>
                     Colour
-                    <input class="input" name="color" type="color" placeholder="Accent Color">
+                    <input name="color" type="color" placeholder="Accent Color">
                 </label>
                 <label class="col-span">
                     Description
-                    <textarea class="input" name="text" rows="3" placeholder="Description" required></textarea>
+                    <textarea name="text" rows="3" placeholder="Description" required></textarea>
                 </label>
                 <fieldset name="options" class="options col-span">
                     <legend>Encounter Options / Choices</legend>
-                    <div class="flex col-span">
-                        <input class="input" type="text" data-option-name placeholder="Option Name">
+                    <div class="flex--start col-span">
+                        <input type="text" data-option-name placeholder="Option Name" value="Bum" required>
                         <button type="button" data-action="addOption">Add Option +</button>
                     </div>
                     <template data-option>
                         <fieldset name="" class="col-span">
                             <legend>Option / Choice Name</legend>
                             <label>
-                                Stat tested - Which player stat should be tested in this option?
-                                <select name="stat">
-                                    <option value="Strength">
-                                    <option value="Wisdom">
-                                    <option value="Agility">
-                                    <option value="charisma">
+                                Stat tested
+                                <select name="stat" required>
+                                    <option value="" disabled selected hidden>Choose an attribute</option>
                                 </select>
                             </label>
                             <label>
-                                Threshold - What must be rolled to achieve success? (D20)
-                                <input class="input" name="threshold" type="number" min="1" max="20" required>
+                                Success Threshold
+                                <input name="threshold" placeholder="1 to 20" type="number" min="1" max="20" required>
                             </label>
                             <fieldset name="success" class="column">
                                 <legend>On Success</legend>
-                                <label>
+                                <label class="col-span">
                                     Title
-                                    <input class="input" name="title" type="text" required>
+                                    <input name="title" placeholder="Flavour text" type="text" required>
                                 </label>
-                                <label>
+                                <label class="col-span">
                                     Description
-                                    <input class="input" name="text" type="textarea" required>
+                                    <textarea name="text" placeholder="Flavour text" required></textarea>
                                 </label>
                                 <label>
-                                    Effect On Player
+                                    Player Effect
                                     <select name="effect" required>
-                                        <option value="no effect" selected>No Effect</option>
-                                        <option value="damage">Damage</option>
-                                        <option value="heal">Heal</option>
-                                        <option value="charisma">Damage</option>
+                                        <option value="" disabled selected hidden>Choose</option>
                                     </select>
                                 </label>
                                 <label>
-                                    Potency of Player Effect
-                                    <input class="input" name="number" type="number" required>
+                                    Effect Potency
+                                    <input name="number" type="number" required>
                                 </label>
                             </fieldset>
                             <fieldset name="fail" class="column">
                                 <legend>On Failure</legend>
-                                <label>
+                                <label class="col-span">
                                     Title
-                                    <input class="input" name="title" type="text" required>
+                                    <input name="title" type="text" placeholder="Flavour text" required>
                                 </label>
-                                <label>
+                                <label class="col-span">
                                     Description
-                                    <input class="input" name="text" type="textarea" required>
+                                    <textarea name="text" type="textarea" placeholder="Flavour text"
+                                        required></textarea>
                                 </label>
                                 <label>
-                                    Effect On Player
+                                    Player Effect
                                     <select name="effect" required>
-                                        <option value="no effect" selected>No Effect</option>
-                                        <option value="damage">Damage</option>
-                                        <option value="heal">Heal</option>
-                                        <option value="charisma">Damage</option>
+                                        <option value="" disabled selected hidden>Choose</option>
                                     </select>
                                 </label>
                                 <label>
-                                    Potency of Player Effect
-                                    <input class="input" name="number" type="number" required>
+                                    Effect Potency
+                                    <input name="number" type="number" required>
                                 </label>
                             </fieldset>
                         </fieldset>
@@ -108,9 +100,9 @@
     </main>
     <footer>
         <notice-strip></notice-strip>
-        <div class="flex">
+        <div class="flex--center">
             <label class="sr-only" for="google-auth">Auth Token</label>
-            <input class="input" id="google-auth" name="google-auth" type="text" placeholder="Authentication Token">
+            <input id="google-auth" name="google-auth" type="password" placeholder="Authentication Token" required>
             <button data-submit>Submit</button>
         </div>
     </footer>

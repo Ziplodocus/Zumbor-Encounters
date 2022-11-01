@@ -51,4 +51,12 @@
     display: flex;
     gap: 1em;
     align-items: center;
+    &--center {
+        @extend .flex;
+        justify-content: center;
+    }
+    &--start {
+        @extend .flex;
+        justify-content: start;
+    }
 }

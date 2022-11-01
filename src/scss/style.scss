@@ -35,6 +35,8 @@ header {
     padding: 0.8rem 5%;
     text-align: center;
     background-color: hsl(var(--dark));
+    box-shadow: 0 0.5em 0.5em 0em hsl(var(--dark));
+    z-index: 5;
 }
 
 main {
@@ -48,6 +50,7 @@ footer {
     padding: 0.8rem 5%;
     background-color: hsl(var(--dark));
     z-index: 5000;
+    box-shadow: 0 -0.5em 0.5em 0em hsl(var(--dark));
 }
 
 form {
@@ -57,15 +60,29 @@ form {
 }
 
 fieldset {
-    @extend %clay;
+    --h-space: clamp(1em, 3%, 2em);
     display: grid;
     gap: 1.5rem;
     border: 2px solid #555;
-    border-image-slice: 1;
-    padding: 3%;
     border-radius: 1em;
     backdrop-filter: blur(2rem);
+    padding: 1.5rem var(--h-space) 3rem;
+    fieldset {
+        border-inline: none;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    @media (max-width: 639px) {
+        fieldset {
+            padding-inline: 0;
+        }
+    }
     @media (min-width: 640px) {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+[data-option-name],
+#google-auth {
+    width: auto;
 }

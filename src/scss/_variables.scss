@@ -2,6 +2,10 @@
     --dark: 0 0% 7%;
     --light: 0 0% 93%;
     --primary: 0 0% 47%;
+    --angry: 0 58% 69%;
+    --envy: 120 49% 55%;
 
     --spacer: min(1rem + 3vw, 6rem);
+
+    --shadow: 0 0.2em 0.4em 0em hsl(var(--dark));
 }

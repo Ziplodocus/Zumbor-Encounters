@@ -1,3 +1,4 @@
+import { debounce } from './utilities';
 
 export default class Notice extends HTMLElement {
     constructor() {
@@ -7,14 +8,14 @@ export default class Notice extends HTMLElement {
         this.textContent = str;
         this.setAttribute('active', '');
         this.removeAttribute('invalid');
-        setTimeout(this.clear, 4000);
+        this.clear();
     }
     error(str: string) {
         this.notify(str);
         this.setAttribute('invalid', '');
     }
-    clear = () => {
+    clear = debounce(() => {
         this.removeAttribute('active');
         this.removeAttribute('invalid');
-    };
+    }, 4000);
 }

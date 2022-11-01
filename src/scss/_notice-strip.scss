@@ -1,24 +1,30 @@
 notice-strip {
     position: absolute;
     inset: auto auto calc(100% + 1rem) 5%;
-    max-width: 30ch;
-    padding: 0.5rem 5%;
+    max-width: 35ch;
+    font-size: 1.4rem;
+    padding: 0.5em 1em;
     background-color: hsl(var(--dark) / 75%);
     backdrop-filter: blur(0.2em);
     border-radius: 1em 1em 1em 0;
+    box-shadow: var(--shadow);
+    border-top: 2px solid hsl(var(--primary));
     text-align: center;
     opacity: 0;
     pointer-events: none;
     z-index: -1;
     translate: -10% 0;
-    transition-property: opacity, translate, color;
+    transition-property: opacity, translate, border-color;
     transition-duration: 300ms;
     &[active] {
         display: block;
         translate: 0 0;
         opacity: 1;
     }
+    &[valid] {
+        border-top: 2px solid hsl(var(--envy));
+    }
     &[invalid] {
-        color: red;
+        border-color: hsl(var(--angry));
     }
 }
