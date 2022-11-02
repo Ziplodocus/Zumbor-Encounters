@@ -1,6 +1,6 @@
 import { get, getAll } from './utilities';
 import OptionsForm from './OptionsForm';
-import { EncounterOption } from '@ziplodocus/zumbor-types';
+import { validateEncounterData } from '@ziplodocus/zumbor-types';
 
 type HTMLInputEl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -45,7 +45,9 @@ export default class EncounterForm {
     private submit = () => {
         const data = this.jsonify();
         if (data instanceof Error) return this.error(data);
-        console.log(data);
-        this.form.dispatchEvent(new CustomEvent('submit', { detail: data }));
+        const validatedData = validateEncounterData(data);
+        if (validatedData instanceof Error) return this.error(validatedData);
+        console.log(validatedData);
+        this.form.dispatchEvent(new CustomEvent('submit', { detail: validatedData }));
     };
 }
