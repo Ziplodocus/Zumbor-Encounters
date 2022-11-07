@@ -27,10 +27,10 @@ export default class OptionsForm {
         const statInput = get('[name=stat]', this.template);
         if (!(statInput instanceof HTMLSelectElement))
             throw new Error('[name=stat] is not a select element');
-        for (const attr in Attribute) {
+        for (const [key, attr] of Object.entries(Attribute)) {
             const option = document.createElement('option');
             option.value = attr;
-            option.innerText = attr;
+            option.innerText = key;
             statInput.appendChild(option);
         }
     }

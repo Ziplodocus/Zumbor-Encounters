@@ -1,6 +1,7 @@
 import { get, getAll } from './utilities';
 import OptionsForm from './OptionsForm';
 import { validateEncounterData } from '@ziplodocus/zumbor-types';
+import sanitize from 'sanitize-filename';
 
 type HTMLInputEl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -37,17 +38,23 @@ export default class EncounterForm {
         const fields = getAll(':scope > label [name], :scope > fieldset', element) as NodeListOf<HTMLInputEl | HTMLFieldSetElement>;
         for (const field of Array.from(fields)) {
             if (!field.checkValidity()) return new Error('Some fields are invalid...');
-            encounter[field.name] = (field instanceof HTMLFieldSetElement) ? this.jsonify(field) : field.value;
+            encounter[field.name] = (field instanceof HTMLFieldSetElement) ? this.jsonify(field) : (field.type === 'number' ? +field.value : field.value);
+            // @ts-ignore field is literally defined the line above
+            if (field.name === 'success' || field.name === 'fail') encounter[field.name]['type'] = field.name;
         };
         return encounter;
     };
 
-    private submit = () => {
-        const data = this.jsonify();
+    private submit = async () => {
+        let data = this.jsonify();
+        console.log(data);
         if (data instanceof Error) return this.error(data);
-        const validatedData = validateEncounterData(data);
-        if (validatedData instanceof Error) return this.error(validatedData);
-        console.log(validatedData);
-        this.form.dispatchEvent(new CustomEvent('submit', { detail: validatedData }));
+
+        const validData = validateEncounterData(data);
+        if (validData instanceof Error) return this.error(validData);
+
+        // Ensure safe filename
+        const filename = sanitize(validData.title);
+        this.form.dispatchEvent(new CustomEvent('zubmit', { detail: { filename, data: validData } }));
     };
 }

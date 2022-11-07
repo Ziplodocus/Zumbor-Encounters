@@ -8,7 +8,7 @@ notice-strip {
     backdrop-filter: blur(0.2em);
     border-radius: 1em 1em 1em 0;
     box-shadow: var(--shadow);
-    border-top: 2px solid hsl(var(--primary));
+    border-top: 2px solid hsl(var(--envy));
     text-align: center;
     opacity: 0;
     pointer-events: none;
@@ -20,9 +20,6 @@ notice-strip {
         display: block;
         translate: 0 0;
         opacity: 1;
-    }
-    &[valid] {
-        border-top: 2px solid hsl(var(--envy));
     }
     &[invalid] {
         border-color: hsl(var(--angry));
