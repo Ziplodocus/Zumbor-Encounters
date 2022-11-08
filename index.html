@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    
+  <script type="module" crossorigin src="/assets/index.100c27f7.js"></script>
+  <link rel="stylesheet" href="/assets/index.d3022174.css">
+</head>
+
+<body>
+    <header>
+        <h1>Zumbor Encounter Creator</h1>
+    </header>
+    <main>
+        <form action="" data-encounter-form>
+            <fieldset>
+                <legend>Encounter Details</legend>
+                <label>
+                    Title
+                    <input name="title" type="text" placeholder="Encounter Title" required>
+                </label>
+                <label>
+                    Colour
+                    <input name="color" type="color" placeholder="Accent Color">
+                </label>
+                <label class="col-span">
+                    Description
+                    <textarea name="text" rows="3" placeholder="Description" required></textarea>
+                </label>
+                <fieldset name="options" class="options col-span">
+                    <legend>Encounter Options / Choices</legend>
+                    <div class="flex--start col-span">
+                        <input type="text" data-option-name placeholder="Option Name" value="Bum" required>
+                        <button type="button" data-action="addOption">Add Option +</button>
+                    </div>
+                    <template data-option>
+                        <fieldset name="" class="col-span">
+                            <legend>Option / Choice Name</legend>
+                            <label>
+                                Stat tested
+                                <select name="stat" required>
+                                    <option value="" disabled selected hidden>Choose an attribute</option>
+                                </select>
+                            </label>
+                            <label>
+                                Success Threshold
+                                <input name="threshold" placeholder="1 to 20" type="number" min="1" max="20" required>
+                            </label>
+                            <fieldset name="success" class="column">
+                                <legend>On Success</legend>
+                                <label class="col-span">
+                                    Title
+                                    <input name="title" placeholder="Flavour text" type="text" required>
+                                </label>
+                                <label class="col-span">
+                                    Description
+                                    <textarea name="text" placeholder="Flavour text" required></textarea>
+                                </label>
+                                <label>
+                                    Player Effect
+                                    <select name="effect" required>
+                                        <option value="" disabled selected hidden>Choose</option>
+                                    </select>
+                                </label>
+                                <label>
+                                    Effect Potency
+                                    <input name="value" type="number" required>
+                                </label>
+                            </fieldset>
+                            <fieldset name="fail" class="column">
+                                <legend>On Failure</legend>
+                                <label class="col-span">
+                                    Title
+                                    <input name="title" type="text" placeholder="Flavour text" required>
+                                </label>
+                                <label class="col-span">
+                                    Description
+                                    <textarea name="text" type="textarea" placeholder="Flavour text"
+                                        required></textarea>
+                                </label>
+                                <label>
+                                    Player Effect
+                                    <select name="effect" required>
+                                        <option value="" disabled selected hidden>Choose</option>
+                                    </select>
+                                </label>
+                                <label>
+                                    Effect Potency
+                                    <input name="number" type="number" required>
+                                </label>
+                            </fieldset>
+                        </fieldset>
+                    </template>
+                </fieldset>
+            </fieldset>
+        </form>
+    </main>
+    <footer>
+        <notice-strip></notice-strip>
+        <div class="flex--center">
+            <label class="sr-only" for="google-auth">Auth Token</label>
+            <input data-auth-token name="google-auth" type="password" placeholder="Authentication Token" required>
+            <button data-submit>Submit</button>
+        </div>
+    </footer>
+</body>
+
+</html>
