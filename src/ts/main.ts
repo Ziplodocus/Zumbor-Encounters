@@ -21,7 +21,7 @@ form.addEventListener('notice', (e: CustomEvent<string>) => {
 
 form.addEventListener('zubmit', async (e) => {
     //@ts-ignore TS doesn't recognise custom events.
-    const { filename, data: data } = e.detail;
+    const { filename, data } = e.detail;
     const key = keyInput.value;
 
     // Check if file exists
