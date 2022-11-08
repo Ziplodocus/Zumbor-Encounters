@@ -37,9 +37,9 @@ export default class EncounterForm {
         let encounter: Record<string, unknown> = {};
         const fields = getAll(':scope > label [name], :scope > fieldset', element) as NodeListOf<HTMLInputEl | HTMLFieldSetElement>;
         for (const field of Array.from(fields)) {
-            if (!field.checkValidity()) return new Error('Some fields are invalid...');
+            if (!field.checkValidity()) return new Error(`The ${field.name} field is invalid...`);
             encounter[field.name] = (field instanceof HTMLFieldSetElement) ? this.jsonify(field) : (field.type === 'number' ? +field.value : field.value);
-            // @ts-ignore field is literally defined the line above
+            // @ts-ignore encounter[field.name] is literally defined the line above
             if (field.name === 'success' || field.name === 'fail') encounter[field.name]['type'] = field.name;
         };
         return encounter;
