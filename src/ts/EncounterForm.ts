@@ -1,6 +1,6 @@
 import { get, getAll } from './utilities';
 import OptionsForm from './OptionsForm';
-import { validateEncounterData } from '@ziplodocus/zumbor-types';
+import { Attribute, EncounterData, EncounterResult, PlayerEffect, validateEncounterData } from '@ziplodocus/zumbor-types';
 import sanitize from 'sanitize-filename';
 
 type HTMLInputEl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -37,17 +37,28 @@ export default class EncounterForm {
         let encounter: Record<string, unknown> = {};
         const fields = getAll(':scope > label [name], :scope > fieldset', element) as NodeListOf<HTMLInputEl | HTMLFieldSetElement>;
         for (const field of Array.from(fields)) {
-            if (!field.checkValidity()) return new Error(`The ${field.name} field is invalid...`);
-            encounter[field.name] = (field instanceof HTMLFieldSetElement) ? this.jsonify(field) : (field.type === 'number' ? +field.value : field.value);
+            // @ts-ignore if placeholder doesn't exist it's gonna use the name dumb typescript
+            if (!field.checkValidity()) return new Error(`The ${field?.placeholder || field.name} field is invalid...`);
+            if (field instanceof HTMLFieldSetElement) {
+                const nestedObj = this.jsonify(field);
+                if (nestedObj instanceof Error) return nestedObj;
+                encounter[field.name] = nestedObj;
+            } else {
+                encounter[field.name] = (field.type === 'number' ? +field.value : field.value);
+            }
             // @ts-ignore encounter[field.name] is literally defined the line above
-            if (field.name === 'success' || field.name === 'fail') encounter[field.name]['type'] = field.name;
+            if (field.name === EncounterResult.SUCCESS || field.name === EncounterResult.FAIL) encounter[field.name]['type'] = field.name;
         };
         return encounter;
     };
 
+    public reset = async () => {
+        this.options.reset();
+        this.form.reset();
+    };
+
     private submit = async () => {
         let data = this.jsonify();
-        console.log(data);
         if (data instanceof Error) return this.error(data);
 
         const validData = validateEncounterData(data);

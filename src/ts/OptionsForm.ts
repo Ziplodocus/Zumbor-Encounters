@@ -1,4 +1,4 @@
-import { capitalise, get, getAll } from "./utilities";
+import { get, getAll } from "./utilities";
 import { PlayerEffect, Attribute } from "@ziplodocus/zumbor-types";
 
 export default class OptionsForm {
@@ -27,10 +27,10 @@ export default class OptionsForm {
         const statInput = get('[name=stat]', this.template);
         if (!(statInput instanceof HTMLSelectElement))
             throw new Error('[name=stat] is not a select element');
-        for (const [key, attr] of Object.entries(Attribute)) {
+        for (const attr of Object.values(Attribute)) {
             const option = document.createElement('option');
             option.value = attr;
-            option.innerText = key;
+            option.innerText = attr;
             statInput.appendChild(option);
         }
     }
@@ -39,16 +39,16 @@ export default class OptionsForm {
         if (effectInput.length !== 2)
             throw new Error('Missing two select[name=effect]');
         effectInput.forEach(sel => {
-            for (const [key, val] of Object.entries(PlayerEffect)) {
+            for (const effect of Object.values(PlayerEffect)) {
                 const option = document.createElement('option');
-                option.value = key;
-                option.innerText = capitalise(val);
+                option.value = effect;
+                option.innerText = effect;
                 sel.appendChild(option);
             }
         });
     }
 
-    add = () => {
+    private add = () => {
         if (!this.namer.checkValidity())
             return this.error(new Error("Please add a label for the option"));
         const name = this.namer.value;
@@ -70,6 +70,10 @@ export default class OptionsForm {
         if (this.options.size !== 4) return this.notice(`Added ${name} option`);
     };
 
+    reset = () => {
+        getAll('fieldset[data-option]', this.form).forEach(option => option.remove());
+    };
+
     private error = (err: Error) => {
         this.form.dispatchEvent(
             new CustomEvent('err', { detail: err }));
@@ -81,9 +85,9 @@ export default class OptionsForm {
     };
 
     private getTemplate() {
-        let template = get(':scope [data-option]', this.form);
+        let template = get(':scope [data-option-template]', this.form);
         if (!(template instanceof HTMLTemplateElement))
-            throw new Error('No template element with data-option attribute');
+            throw new Error('No template element with data-option-template attribute');
         template = template.content.firstElementChild;
         if (!(template instanceof HTMLFieldSetElement))
             throw new Error('Child element of the template is not a fieldset element');

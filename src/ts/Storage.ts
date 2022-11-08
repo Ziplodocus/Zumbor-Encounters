@@ -20,7 +20,10 @@ export async function upload(name: string, data: EncounterData, password: string
         `${baseUrl}/v0/b/${bucket}/o/${prefix}${name}.json?key=${password}`,
         {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
     );
     if (result.status === 200) return true;

@@ -34,5 +34,6 @@ form.addEventListener('zubmit', async (e) => {
         notice.error(uploadResult.message);
     }
 
+    form.reset();
     notice.notify(`Encounter ${data.title} has been added`);
 });
