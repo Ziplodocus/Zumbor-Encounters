@@ -8,7 +8,7 @@
     <title>Document</title>
     
     
-  <script type="module" crossorigin src="/Zumbor-Encounters/assets/index.f90c1b20.js"></script>
+  <script type="module" crossorigin src="/Zumbor-Encounters/assets/index.84121d95.js"></script>
   <link rel="stylesheet" href="/Zumbor-Encounters/assets/index.f0b620ab.css">
 </head>
 
@@ -35,11 +35,11 @@
                 <fieldset name="options" class="options col-span">
                     <legend>Encounter Options / Choices</legend>
                     <div class="flex--start col-span">
-                        <input type="text" data-option-name placeholder="Option Name" value="Bum" required>
+                        <input type="text" data-option-name placeholder="Option Name" required>
                         <button type="button" data-action="addOption">Add Option +</button>
                     </div>
-                    <template data-option>
-                        <fieldset name="" class="col-span">
+                    <template data-option-template>
+                        <fieldset name="" data-option class="col-span">
                             <legend>Option / Choice Name</legend>
                             <label>
                                 Stat tested
@@ -51,7 +51,7 @@
                                 Success Threshold
                                 <input name="threshold" placeholder="1 to 20" type="number" min="1" max="20" required>
                             </label>
-                            <fieldset name="success" class="column">
+                            <fieldset name="Success" class="column">
                                 <legend>On Success</legend>
                                 <label class="col-span">
                                     Title
@@ -59,7 +59,7 @@
                                 </label>
                                 <label class="col-span">
                                     Description
-                                    <textarea name="text" placeholder="Flavour text" required></textarea>
+                                    <textarea name="text" rows="4" placeholder="Flavour text" required></textarea>
                                 </label>
                                 <label>
                                     Player Effect
@@ -69,10 +69,10 @@
                                 </label>
                                 <label>
                                     Effect Potency
-                                    <input name="value" type="number" required>
+                                    <input name="potency" type="number" required>
                                 </label>
                             </fieldset>
-                            <fieldset name="fail" class="column">
+                            <fieldset name="Fail" class="column">
                                 <legend>On Failure</legend>
                                 <label class="col-span">
                                     Title
@@ -80,7 +80,7 @@
                                 </label>
                                 <label class="col-span">
                                     Description
-                                    <textarea name="text" type="textarea" placeholder="Flavour text"
+                                    <textarea name="text" rows="4" type="textarea" placeholder="Flavour text"
                                         required></textarea>
                                 </label>
                                 <label>
@@ -91,7 +91,7 @@
                                 </label>
                                 <label>
                                     Effect Potency
-                                    <input name="number" type="number" required>
+                                    <input name="potency" type="number" required>
                                 </label>
                             </fieldset>
                         </fieldset>
