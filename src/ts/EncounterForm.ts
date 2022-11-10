@@ -1,6 +1,6 @@
 import { get, getAll } from './utilities';
 import OptionsForm from './OptionsForm';
-import { Attribute, EncounterData, EncounterResult, PlayerEffect, validateEncounterData } from '@ziplodocus/zumbor-types';
+import { EncounterResult, validateEncounterData } from '@ziplodocus/zumbor-types';
 import sanitize from 'sanitize-filename';
 
 type HTMLInputEl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
