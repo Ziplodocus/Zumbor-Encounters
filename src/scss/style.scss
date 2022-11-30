@@ -60,13 +60,12 @@ form {
 }
 
 fieldset {
-    --h-space: clamp(1em, 3%, 2em);
     display: grid;
     gap: 1.5rem;
     border: 2px solid #555;
     border-radius: 1em;
     backdrop-filter: blur(2rem);
-    padding: 1.5rem var(--h-space) 3rem;
+    padding: 1.5rem 1em 3rem;
     fieldset {
         border-inline: none;
         border-bottom: none;

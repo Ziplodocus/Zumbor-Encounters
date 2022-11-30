@@ -38,7 +38,11 @@
                     </div>
                     <template data-option-template>
                         <fieldset name="" data-option class="col-span">
-                            <legend>Option / Choice Name</legend>
+                            <legend>
+                                <button type=button aria-label="remove this option"
+                                    data-action="removeOption">X</button>
+                                <span></span>
+                            </legend>
                             <label>
                                 Stat tested
                                 <select name="stat" required>
@@ -53,11 +57,11 @@
                                 <legend>On Success</legend>
                                 <label class="col-span">
                                     Title
-                                    <input name="title" placeholder="Flavour text" type="text" required>
+                                    <input name="title" placeholder="Summary" type="text" required>
                                 </label>
                                 <label class="col-span">
                                     Description
-                                    <textarea name="text" rows="4" placeholder="Flavour text" required></textarea>
+                                    <textarea name="text" rows="4" placeholder="Flavour Text" required></textarea>
                                 </label>
                                 <label>
                                     Player Effect
@@ -74,7 +78,7 @@
                                 <legend>On Failure</legend>
                                 <label class="col-span">
                                     Title
-                                    <input name="title" type="text" placeholder="Flavour text" required>
+                                    <input name="title" type="text" placeholder="Summary" required>
                                 </label>
                                 <label class="col-span">
                                     Description

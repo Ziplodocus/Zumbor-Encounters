@@ -18,7 +18,11 @@ export default class OptionsForm {
 
         this.namer.addEventListener(
             'keyup',
-            (e) => e.key === 'Enter' && this.add()
+            (e) => {
+                if (e.key !== 'Enter') return;
+                e.preventDefault();
+                this.add();
+            }
         );
         this.submit.addEventListener('click', this.add);
     }
@@ -59,7 +63,7 @@ export default class OptionsForm {
 
         const newOption = this.template.cloneNode(true) as HTMLFieldSetElement;
         newOption.name = name;
-        const legend = get('legend', newOption) as HTMLLegendElement | null;
+        const legend = get('legend span', newOption) as HTMLLegendElement | null;
         if (!legend)
             return this.error(new Error("Option template has no legend"));
         legend.textContent = name;
@@ -67,6 +71,11 @@ export default class OptionsForm {
         this.options.add(newOption.name);
         this.form.appendChild(newOption);
         this.namer.value = '';
+        get('[data-action=removeOption]', newOption)?.addEventListener('click', () => {
+            this.form.removeChild(newOption);
+            this.options.delete(name);
+            this.notice(`Removed ${name} option`);
+        });
         if (this.options.size !== 4) return this.notice(`Added ${name} option`);
     };
 
