@@ -20,7 +20,7 @@
                 <legend>Encounter Details</legend>
                 <label>
                     Title
-                    <input name="title" type="text" placeholder="Encounter Title" required>
+                    <input name="title" type="text" maxlength='256' placeholder="Encounter Title" required>
                 </label>
                 <label>
                     Colour
@@ -28,7 +28,7 @@
                 </label>
                 <label class="col-span">
                     Description
-                    <textarea name="text" rows="3" placeholder="Description" required></textarea>
+                    <textarea name="text" rows="3" maxlength="4096" placeholder="Description - 4096 character limit" required></textarea>
                 </label>
                 <fieldset name="options" class="options col-span">
                     <legend>Encounter Options / Choices</legend>
@@ -57,11 +57,11 @@
                                 <legend>On Success</legend>
                                 <label class="col-span">
                                     Title
-                                    <input name="title" placeholder="Summary" type="text" required>
+                                    <input name="title" maxlength="256" placeholder="Summary" type="text" required>
                                 </label>
                                 <label class="col-span">
                                     Description
-                                    <textarea name="text" rows="4" placeholder="Flavour Text" required></textarea>
+                                    <textarea name="text" rows="4" maxlength="4096" placeholder="Flavour Text" required></textarea>
                                 </label>
                                 <label>
                                     Player Effect
@@ -78,11 +78,11 @@
                                 <legend>On Failure</legend>
                                 <label class="col-span">
                                     Title
-                                    <input name="title" type="text" placeholder="Summary" required>
+                                    <input name="title" type="text" maxlength="256" placeholder="Summary" required>
                                 </label>
                                 <label class="col-span">
                                     Description
-                                    <textarea name="text" rows="4" type="textarea" placeholder="Flavour text"
+                                    <textarea name="text" rows="4" maxlength="4096" type="textarea" placeholder="Flavour text"
                                         required></textarea>
                                 </label>
                                 <label>
