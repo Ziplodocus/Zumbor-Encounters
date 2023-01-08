@@ -3,7 +3,7 @@ import OptionsForm from './OptionsForm';
 import { EncounterResult, validateEncounterData } from '@ziplodocus/zumbor-types';
 import sanitize from 'sanitize-filename';
 
-type HTMLInputEl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+export type HTMLInputEl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 export default class EncounterForm {
     form: HTMLFormElement;
@@ -40,6 +40,16 @@ export default class EncounterForm {
             // @ts-ignore if placeholder doesn't exist it's gonna use the name dumb typescript
             if (!field.checkValidity()) return new Error(`The ${field?.placeholder || field.name} field is invalid...`);
             if (field instanceof HTMLFieldSetElement) {
+
+                // If the effect doesn't have a name,then it shouldn't be included
+                if (field.name === 'baseEffect' || field.name === 'additionalEffect') {
+                    const nameInput = get('select[name=name]', field) as HTMLSelectElement;
+                    if (nameInput.value === '') {
+                        encounter[field.name] = undefined;
+                        continue;
+                    };
+                }
+
                 const nestedObj = this.jsonify(field);
                 if (nestedObj instanceof Error) return nestedObj;
                 encounter[field.name] = nestedObj;
@@ -61,8 +71,12 @@ export default class EncounterForm {
         let data = this.jsonify();
         if (data instanceof Error) return this.error(data);
 
+        console.log(data);
+
         const validData = validateEncounterData(data);
         if (validData instanceof Error) return this.error(validData);
+
+        console.log(validData);
 
         // Ensure safe filename
         const filename = sanitize(validData.title);

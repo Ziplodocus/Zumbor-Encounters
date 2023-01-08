@@ -1,6 +1,6 @@
 {
   "name": "zumbor-encounters",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Web interface for adding Encounter's to zumbor",
   "main": "main.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "vite": "^3.2.0"
   },
   "dependencies": {
-    "@ziplodocus/zumbor-types": "^1.0.14",
+    "@ziplodocus/zumbor-types": "^1.1.3",
     "sanitize-filename": "^1.6.3"
   }
 }

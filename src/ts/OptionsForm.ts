@@ -1,5 +1,6 @@
-import { get, getAll } from "./utilities";
-import { PlayerEffect, Attribute } from "@ziplodocus/zumbor-types";
+import { get, getAll, setRequiredFalse, setRequiredTrue } from "./utilities";
+import { EffectKey, Attribute, LingeringEffectKey, LingeringEffectType } from "@ziplodocus/zumbor-types";
+import { HTMLInputEl } from "./EncounterForm";
 
 export default class OptionsForm {
     form: HTMLFieldSetElement;
@@ -13,8 +14,10 @@ export default class OptionsForm {
         this.namer = this.getNamer();
         this.options = new Set();
         this.submit = this.getSubmit();
+
         this.initStats();
-        this.initEffects();
+        this.initBaseEffects();
+        this.initAdditionalEffects();
 
         this.namer.addEventListener(
             'keyup',
@@ -38,16 +41,43 @@ export default class OptionsForm {
             statInput.appendChild(option);
         }
     }
-    private initEffects() {
-        const effectInput = getAll('select[name=effect]', this.template);
-        if (effectInput.length !== 2)
-            throw new Error('Missing two select[name=effect]');
-        effectInput.forEach(sel => {
-            for (const effect of Object.values(PlayerEffect)) {
+
+    private initBaseEffects() {
+        const effectGroups = getAll('fieldset[name=baseEffect]', this.template);
+        effectGroups.forEach(effectGroup => {
+            const nameInput = get("select[name=name]", effectGroup) as HTMLSelectElement;
+            const inputs = getAll("[name]", effectGroup) as NodeListOf<HTMLInputEl>;
+            if (!nameInput) throw new Error('No name input in baseEffect fieldset');
+            for (const effect of Object.values(EffectKey)) {
                 const option = document.createElement('option');
                 option.value = effect;
                 option.innerText = effect;
-                sel.appendChild(option);
+                nameInput.appendChild(option);
+            }
+        });
+
+
+    }
+
+    private initAdditionalEffects() {
+        const effectGroups = getAll('fieldset[name=additionalEffect]', this.template);
+        effectGroups.forEach(effectGroup => {
+            const nameInput = get("select[name=name]", effectGroup);
+            if (!nameInput) throw new Error('No name input in baseEffect fieldset');
+            for (const effect of Object.values(LingeringEffectKey)) {
+                const option = document.createElement('option');
+                option.value = effect;
+                option.innerText = effect;
+                nameInput.appendChild(option);
+            }
+
+            const typeInput = get("select[name=type]", effectGroup);
+            if (!typeInput) throw new Error('No type input in baseEffect fieldset');
+            for (const effect of Object.values(LingeringEffectType)) {
+                const option = document.createElement('option');
+                option.value = effect;
+                option.innerText = effect;
+                typeInput.appendChild(option);
             }
         });
     }
@@ -76,7 +106,18 @@ export default class OptionsForm {
             this.options.delete(name);
             this.notice(`Removed ${name} option`);
         });
-        if (this.options.size !== 4) return this.notice(`Added ${name} option`);
+
+        const nameInputs = getAll('select[name=name]', newOption) as NodeListOf<HTMLSelectElement>;
+        nameInputs.forEach(nameInput => {
+            const fieldSet = nameInput.closest('fieldset') as HTMLFieldSetElement;
+            const inputs = getAll('[name]', fieldSet) as NodeListOf<HTMLInputEl>;
+            nameInput.addEventListener('input', () => {
+                if (nameInput.value !== '') inputs.forEach(setRequiredTrue);
+                else inputs.forEach(setRequiredFalse);
+            })
+        })
+
+        this.notice(`Added ${name} option`);
     };
 
     reset = () => {
