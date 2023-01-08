@@ -8,8 +8,8 @@
     <title>Document</title>
     
     
-  <script type="module" crossorigin src="/Zumbor-Encounters/assets/index.ef32b5b1.js"></script>
-  <link rel="stylesheet" href="/Zumbor-Encounters/assets/index.2df8722a.css">
+  <script type="module" crossorigin src="/Zumbor-Encounters/assets/index.f55cefcf.js"></script>
+  <link rel="stylesheet" href="/Zumbor-Encounters/assets/index.ba54ec29.css">
 </head>
 
 <body>
@@ -65,16 +65,38 @@
                                     Description
                                     <textarea name="text" rows="4" maxlength="4096" placeholder="Flavour Text" required></textarea>
                                 </label>
-                                <label>
-                                    Player Effect
-                                    <select name="effect" required>
-                                        <option value="" disabled selected hidden>Choose</option>
-                                    </select>
-                                </label>
-                                <label>
-                                    Effect Potency
-                                    <input name="potency" type="number" required>
-                                </label>
+                                <fieldset name="baseEffect" class="col-span">
+                                    <label>
+                                        Effect
+                                        <select name="name">
+                                            <option value="" selected>No effect</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        Potency
+                                        <input name="potency" type="number" value="0">
+                                    </label>
+                                </fieldset>
+                                <fieldset name="additionalEffect" class="col-span">
+                                    <label>
+                                        Lingering Effect
+                                        <select name="name">
+                                            <option value="" selected>No effect</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        Type
+                                        <select name="type"></select>
+                                    </label>
+                                    <label>
+                                        Potency
+                                        <input name="potency" type="number" value="1">
+                                    </label>
+                                    <label>
+                                        Duration
+                                        <input name="potency" type="number" value="1" min="1" max="10">
+                                    </label>
+                                </fieldset>
                             </fieldset>
                             <fieldset name="Fail" class="column">
                                 <legend>On Failure</legend>
@@ -87,16 +109,38 @@
                                     <textarea name="text" rows="4" maxlength="4096" type="textarea" placeholder="Flavour text"
                                         required></textarea>
                                 </label>
-                                <label>
-                                    Player Effect
-                                    <select name="effect" required>
-                                        <option value="" disabled selected hidden>Choose</option>
-                                    </select>
-                                </label>
-                                <label>
-                                    Effect Potency
-                                    <input name="potency" type="number" required>
-                                </label>
+                                <fieldset name="baseEffect" class="col-span">
+                                    <label>
+                                        Effect
+                                        <select name="name">
+                                            <option value="" selected>No effect</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        Potency
+                                        <input name="potency" type="number" value="0">
+                                    </label>
+                                </fieldset>
+                                <fieldset name="additionalEffect" class="col-span">
+                                    <label>
+                                        Lingering Effect
+                                        <select name="name">
+                                            <option value="" selected>No effect</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        Type
+                                        <select name="type"></select>
+                                    </label>
+                                    <label>
+                                        Potency
+                                        <input name="potency" type="number" value="1">
+                                    </label>
+                                    <label>
+                                        Duration
+                                        <input name="potency" type="number" value="1" min="1" max="10">
+                                    </label>
+                                </fieldset>
                             </fieldset>
                         </fieldset>
                     </template>
