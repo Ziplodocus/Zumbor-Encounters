@@ -46,7 +46,6 @@ export default class OptionsForm {
         const effectGroups = getAll('fieldset[name=baseEffect]', this.template);
         effectGroups.forEach(effectGroup => {
             const nameInput = get("select[name=name]", effectGroup) as HTMLSelectElement;
-            const inputs = getAll("[name]", effectGroup) as NodeListOf<HTMLInputEl>;
             if (!nameInput) throw new Error('No name input in baseEffect fieldset');
             for (const effect of Object.values(EffectKey)) {
                 const option = document.createElement('option');
